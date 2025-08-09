@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block title %}Crew Registration - Maricheck{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-user-plus me-2"></i>Crew Member Registration
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <p class="text-muted mb-4">
+                        Join our maritime crew database to connect with vessel opportunities worldwide. Please fill in all required information.
+                    </p>
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+                        
+                        <!-- Personal Information -->
+                        <h5 class="text-primary mb-3">
+                            <i class="fas fa-user me-2"></i>Personal Information
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.name.label(class="form-label") }}
+                                {{ form.name(class="form-control") }}
+                                {% if form.name.errors %}
+                                    <div class="text-danger small">{{ form.name.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.nationality.label(class="form-label") }}
+                                {{ form.nationality(class="form-control") }}
+                                {% if form.nationality.errors %}
+                                    <div class="text-danger small">{{ form.nationality.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.date_of_birth.label(class="form-label") }}
+                                {{ form.date_of_birth(class="form-control") }}
+                                {% if form.date_of_birth.errors %}
+                                    <div class="text-danger small">{{ form.date_of_birth.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.mobile_number.label(class="form-label") }}
+                                {{ form.mobile_number(class="form-control") }}
+                                {% if form.mobile_number.errors %}
+                                    <div class="text-danger small">{{ form.mobile_number.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form.email.label(class="form-label") }}
+                            {{ form.email(class="form-control") }}
+                            {% if form.email.errors %}
+                                <div class="text-danger small">{{ form.email.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Professional Information -->
+                        <h5 class="text-primary mb-3 mt-4">
+                            <i class="fas fa-briefcase me-2"></i>Professional Information
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.rank.label(class="form-label") }}
+                                {{ form.rank(class="form-select") }}
+                                {% if form.rank.errors %}
+                                    <div class="text-danger small">{{ form.rank.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.passport.label(class="form-label") }}
+                                {{ form.passport(class="form-control") }}
+                                {% if form.passport.errors %}
+                                    <div class="text-danger small">{{ form.passport.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.years_experience.label(class="form-label") }}
+                                {{ form.years_experience(class="form-control") }}
+                                {% if form.years_experience.errors %}
+                                    <div class="text-danger small">{{ form.years_experience.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.availability_date.label(class="form-label") }}
+                                {{ form.availability_date(class="form-control") }}
+                                {% if form.availability_date.errors %}
+                                    <div class="text-danger small">{{ form.availability_date.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form.last_vessel_type.label(class="form-label") }}
+                            {{ form.last_vessel_type(class="form-control") }}
+                            {% if form.last_vessel_type.errors %}
+                                <div class="text-danger small">{{ form.last_vessel_type.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Emergency Contact -->
+                        <h5 class="text-primary mb-3 mt-4">
+                            <i class="fas fa-phone me-2"></i>Emergency Contact (Optional)
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.emergency_contact_name.label(class="form-label") }}
+                                {{ form.emergency_contact_name(class="form-control") }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.emergency_contact_phone.label(class="form-label") }}
+                                {{ form.emergency_contact_phone(class="form-control") }}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form.emergency_contact_relationship.label(class="form-label") }}
+                            {{ form.emergency_contact_relationship(class="form-control") }}
+                        </div>
+
+                        <!-- Document Uploads -->
+                        <h5 class="text-primary mb-3 mt-4">
+                            <i class="fas fa-file-upload me-2"></i>Document Uploads (Optional)
+                        </h5>
+                        <p class="text-muted small mb-3">
+                            You can upload documents now or later through your private profile link. Supported formats: PDF, JPG, PNG for certificates; DOC, DOCX for resumes.
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.passport_file.label(class="form-label") }}
+                                {{ form.passport_file(class="form-control") }}
+                                {% if form.passport_file.errors %}
+                                    <div class="text-danger small">{{ form.passport_file.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.cdc_file.label(class="form-label") }}
+                                {{ form.cdc_file(class="form-control") }}
+                                {% if form.cdc_file.errors %}
+                                    <div class="text-danger small">{{ form.cdc_file.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.resume_file.label(class="form-label") }}
+                                {{ form.resume_file(class="form-control") }}
+                                {% if form.resume_file.errors %}
+                                    <div class="text-danger small">{{ form.resume_file.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.photo_file.label(class="form-label") }}
+                                {{ form.photo_file(class="form-control") }}
+                                {% if form.photo_file.errors %}
+                                    <div class="text-danger small">{{ form.photo_file.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            {{ form.medical_certificate_file.label(class="form-label") }}
+                            {{ form.medical_certificate_file(class="form-control") }}
+                            {% if form.medical_certificate_file.errors %}
+                                <div class="text-danger small">{{ form.medical_certificate_file.errors[0] }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('index') }}" class="btn btn-secondary me-md-2">Cancel</a>
+                            {{ form.submit(class="btn btn-primary px-4") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,194 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="py-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</h1>
+        <div class="text-muted">
+            <i class="fas fa-clock me-1"></i>{{ moment().format('MMMM Do YYYY, h:mm a') if moment else 'Current Time' }}
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Crew Members
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold">{{ total_crew }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Staff Members
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold">{{ total_staff }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-briefcase fa-2x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                In Screening
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold">{{ crew_screening + staff_screening }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-search fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Approved
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold">{{ crew_approved + staff_approved }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-check-circle fa-2x text-info"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-users me-2"></i>Recent Crew Registrations
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    {% if recent_crew %}
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <tbody>
+                                    {% for crew in recent_crew %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                    <i class="fas fa-user"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">{{ crew.name }}</div>
+                                                    <small class="text-muted">{{ crew.rank }} | {{ crew.nationality }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end">
+                                            <span class="badge bg-{{ crew.get_status_class() }}">
+                                                {{ crew.get_status_name() }}
+                                            </span>
+                                            <br>
+                                            <small class="text-muted">{{ crew.created_at.strftime('%m/%d/%Y') }}</small>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('crew_list') }}" class="btn btn-sm btn-primary">
+                                View All Crew <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="p-4 text-center text-muted">
+                            <i class="fas fa-user-slash fa-3x mb-3 opacity-50"></i>
+                            <p>No recent crew registrations</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-briefcase me-2"></i>Recent Staff Registrations
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    {% if recent_staff %}
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <tbody>
+                                    {% for staff in recent_staff %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-success text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                    <i class="fas fa-briefcase"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">{{ staff.full_name }}</div>
+                                                    <small class="text-muted">{{ staff.position_applying }} | {{ staff.department }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end">
+                                            <span class="badge bg-{{ staff.get_status_class() }}">
+                                                {{ staff.get_status_name() }}
+                                            </span>
+                                            <br>
+                                            <small class="text-muted">{{ staff.created_at.strftime('%m/%d/%Y') }}</small>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('staff_list') }}" class="btn btn-sm btn-success">
+                                View All Staff <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="p-4 text-center text-muted">
+                            <i class="fas fa-briefcase fa-3x mb-3 opacity-50"></i>
+                            <p>No recent staff registrations</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

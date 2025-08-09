@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}Track Status - Maricheck{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow">
+                <div class="card-header bg-info text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-search me-2"></i>Track Application Status
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <p class="text-muted mb-4">
+                        Enter your passport number to check your application status and progress.
+                    </p>
+
+                    <form method="POST" class="mb-4">
+                        {{ form.hidden_tag() }}
+                        <div class="row align-items-end">
+                            <div class="col-md-8 mb-3">
+                                {{ form.passport.label(class="form-label") }}
+                                {{ form.passport(class="form-control") }}
+                                {% if form.passport.errors %}
+                                    <div class="text-danger small">{{ form.passport.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                {{ form.submit(class="btn btn-info w-100") }}
+                            </div>
+                        </div>
+                    </form>
+
+                    {% if crew_member %}
+                        <div class="border rounded p-4 bg-light">
+                            <h4 class="text-primary mb-3">
+                                <i class="fas fa-user me-2"></i>{{ crew_member.name }}
+                            </h4>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Rank:</strong> {{ crew_member.rank }}</p>
+                                    <p><strong>Nationality:</strong> {{ crew_member.nationality }}</p>
+                                    <p><strong>Experience:</strong> {{ crew_member.years_experience }} years</p>
+                                    <p><strong>Availability:</strong> {{ crew_member.availability_date.strftime('%B %d, %Y') }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Application Date:</strong> {{ crew_member.created_at.strftime('%B %d, %Y') }}</p>
+                                    <p><strong>Status:</strong> 
+                                        <span class="badge bg-{{ crew_member.get_status_class() }}">
+                                            {{ crew_member.get_status_name() }}
+                                        </span>
+                                    </p>
+                                    <p><strong>Profile Completion:</strong> 
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar" role="progressbar" 
+                                                 style="width: {{ crew_member.get_profile_completion_percentage() }}%">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">{{ crew_member.get_profile_completion_percentage() }}% complete</small>
+                                    </p>
+                                </div>
+                            </div>
+
+                            {% if crew_member.admin_notes %}
+                                <div class="mt-3">
+                                    <h6 class="text-muted">Admin Notes:</h6>
+                                    <div class="alert alert-info">
+                                        {{ crew_member.admin_notes }}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if crew_member.screening_notes %}
+                                <div class="mt-3">
+                                    <h6 class="text-muted">Screening Notes:</h6>
+                                    <div class="alert alert-warning">
+                                        {{ crew_member.screening_notes }}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <!-- Status Information -->
+                            <div class="mt-4">
+                                <h6 class="text-muted mb-3">Status Information:</h6>
+                                <div class="row text-center">
+                                    <div class="col">
+                                        <div class="bg-secondary text-white rounded p-2">
+                                            <small>Registered</small>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="bg-{{ 'warning' if crew_member.status >= 1 else 'light text-muted' }} text-white rounded p-2">
+                                            <small>Screening</small>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="bg-{{ 'info' if crew_member.status >= 2 else 'light text-muted' }} text-white rounded p-2">
+                                            <small>Verified</small>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="bg-{{ 'success' if crew_member.status >= 3 else 'light text-muted' }} text-white rounded p-2">
+                                            <small>Approved</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Document Status -->
+                            {% set documents = crew_member.get_required_documents() %}
+                            {% if documents %}
+                                <div class="mt-4">
+                                    <h6 class="text-muted mb-3">Document Status:</h6>
+                                    <div class="row">
+                                        {% for doc in documents %}
+                                            <div class="col-md-6 mb-2">
+                                                <div class="d-flex align-items-center">
+                                                    {% if doc.uploaded %}
+                                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                                    {% else %}
+                                                        <i class="fas fa-times-circle text-{{ 'danger' if doc.required else 'muted' }} me-2"></i>
+                                                    {% endif %}
+                                                    <span class="{{ 'text-muted' if not doc.required }}">
+                                                        {{ doc.name }}
+                                                        {% if not doc.required %}<small>(Optional)</small>{% endif %}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

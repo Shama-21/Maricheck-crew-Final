@@ -1,0 +1,202 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ staff_member.full_name }} - Staff Profile{% endblock %}
+
+{% block content %}
+<div class="py-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">
+            <i class="fas fa-briefcase me-2"></i>{{ staff_member.full_name }}
+            <span class="badge bg-{{ staff_member.get_status_class() }} ms-2">
+                {{ staff_member.get_status_name() }}
+            </span>
+        </h1>
+        <div>
+            <a href="{{ url_for('staff_list') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to List
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Profile Information -->
+        <div class="col-lg-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="bg-success text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                        <i class="fas fa-briefcase fa-2x"></i>
+                    </div>
+                    <h4>{{ staff_member.full_name }}</h4>
+                    <p class="text-muted">{{ staff_member.position_applying }}</p>
+                    <p class="text-muted small">{{ staff_member.department }} Department</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Information -->
+        <div class="col-lg-8">
+            <!-- Personal Information -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user me-2"></i>Personal Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Full Name:</strong> {{ staff_member.full_name }}</p>
+                            <p><strong>Email/WhatsApp:</strong> {{ staff_member.email_or_whatsapp }}</p>
+                            <p><strong>Mobile Number:</strong> {{ staff_member.mobile_number }}</p>
+                            <p><strong>Current Location:</strong> {{ staff_member.location }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Registration Date:</strong> {{ staff_member.created_at.strftime('%B %d, %Y at %I:%M %p') }}</p>
+                            <p><strong>Last Updated:</strong> {{ staff_member.updated_at.strftime('%B %d, %Y at %I:%M %p') }}</p>
+                            <p><strong>Availability Date:</strong> {{ staff_member.availability_date.strftime('%B %d, %Y') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Information -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-briefcase me-2"></i>Professional Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Position Applying:</strong> {{ staff_member.position_applying }}</p>
+                            <p><strong>Department:</strong> 
+                                <span class="badge bg-secondary">{{ staff_member.department }}</span>
+                            </p>
+                            <p><strong>Years of Experience:</strong> {{ staff_member.years_experience }} years</p>
+                        </div>
+                        <div class="col-md-6">
+                            {% if staff_member.current_employer %}
+                            <p><strong>Current Employer:</strong> {{ staff_member.current_employer }}</p>
+                            {% endif %}
+                            {% if staff_member.salary_expectation %}
+                            <p><strong>Salary Expectation:</strong> {{ staff_member.salary_expectation }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Information -->
+            {% if staff_member.education or staff_member.certifications %}
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-graduation-cap me-2"></i>Additional Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if staff_member.education %}
+                    <div class="mb-3">
+                        <strong>Education:</strong>
+                        <p>{{ staff_member.education }}</p>
+                    </div>
+                    {% endif %}
+                    {% if staff_member.certifications %}
+                    <div class="mb-3">
+                        <strong>Certifications:</strong>
+                        <p style="white-space: pre-line;">{{ staff_member.certifications }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Documents -->
+            {% if staff_member.resume_file or staff_member.photo_file %}
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-file-alt me-2"></i>Documents
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% if staff_member.resume_file %}
+                        <div class="col-md-6 mb-2">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-file-pdf text-danger me-2"></i>
+                                <span>Resume/CV</span>
+                                <a href="{{ url_for('uploaded_file', filename=staff_member.resume_file) }}" 
+                                   target="_blank" class="btn btn-sm btn-outline-primary ms-auto">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if staff_member.photo_file %}
+                        <div class="col-md-6 mb-2">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-image text-primary me-2"></i>
+                                <span>Photo</span>
+                                <a href="{{ url_for('uploaded_file', filename=staff_member.photo_file) }}" 
+                                   target="_blank" class="btn btn-sm btn-outline-primary ms-auto">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Admin Actions -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-cogs me-2"></i>Admin Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('update_staff_status', staff_id=staff_member.id) }}">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="action" class="form-label">Action</label>
+                                <select class="form-select" id="action" name="action" required>
+                                    <option value="">Select Action</option>
+                                    <option value="approve">Approve</option>
+                                    <option value="reject">Reject</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="notes" class="form-label">Notes</label>
+                                <textarea class="form-control" id="notes" name="notes" rows="2" placeholder="Optional notes..."></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save me-2"></i>Update Status
+                        </button>
+                    </form>
+
+                    <!-- Current Notes Display -->
+                    {% if staff_member.admin_notes or staff_member.screening_notes %}
+                    <hr>
+                    <h6 class="text-muted">Current Notes:</h6>
+                    {% if staff_member.admin_notes %}
+                    <div class="alert alert-info">
+                        <strong>Admin Notes:</strong> {{ staff_member.admin_notes }}
+                    </div>
+                    {% endif %}
+                    {% if staff_member.screening_notes %}
+                    <div class="alert alert-warning">
+                        <strong>Screening Notes:</strong> {{ staff_member.screening_notes }}
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

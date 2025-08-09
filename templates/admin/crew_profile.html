@@ -1,0 +1,243 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ crew_member.name }} - Crew Profile{% endblock %}
+
+{% block content %}
+<div class="py-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">
+            <i class="fas fa-user me-2"></i>{{ crew_member.name }}
+            <span class="badge bg-{{ crew_member.get_status_class() }} ms-2">
+                {{ crew_member.get_status_name() }}
+            </span>
+        </h1>
+        <div>
+            <a href="{{ url_for('crew_list') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to List
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Profile Information -->
+        <div class="col-lg-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="bg-primary text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                        <i class="fas fa-user fa-2x"></i>
+                    </div>
+                    <h4>{{ crew_member.name }}</h4>
+                    <p class="text-muted">{{ crew_member.rank }}</p>
+                    <p class="text-muted small">{{ crew_member.nationality }}</p>
+                    
+                    <div class="mt-3">
+                        <div class="progress mb-2" style="height: 8px;">
+                            <div class="progress-bar" role="progressbar" 
+                                 style="width: {{ crew_member.get_profile_completion_percentage() }}%">
+                            </div>
+                        </div>
+                        <small class="text-muted">Profile {{ crew_member.get_profile_completion_percentage() }}% Complete</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-header">
+                    <h6 class="card-title mb-0">Quick Actions</h6>
+                </div>
+                <div class="card-body">
+                    {% if crew_member.profile_token %}
+                    <button type="button" class="btn btn-info w-100 mb-2" 
+                            onclick="copyToClipboard('{{ url_for('crew_private_profile', crew_id=crew_member.id, token=crew_member.profile_token, _external=True) }}')">
+                        <i class="fas fa-copy me-2"></i>Copy Profile Link
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Information -->
+        <div class="col-lg-8">
+            <!-- Personal Information -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user me-2"></i>Personal Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Full Name:</strong> {{ crew_member.name }}</p>
+                            <p><strong>Nationality:</strong> {{ crew_member.nationality }}</p>
+                            <p><strong>Date of Birth:</strong> {{ crew_member.date_of_birth.strftime('%B %d, %Y') }}</p>
+                            <p><strong>Passport Number:</strong> <code>{{ crew_member.passport }}</code></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Mobile Number:</strong> {{ crew_member.mobile_number }}</p>
+                            <p><strong>Email:</strong> {{ crew_member.email }}</p>
+                            <p><strong>Registration Date:</strong> {{ crew_member.created_at.strftime('%B %d, %Y at %I:%M %p') }}</p>
+                            <p><strong>Last Updated:</strong> {{ crew_member.updated_at.strftime('%B %d, %Y at %I:%M %p') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Information -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-briefcase me-2"></i>Professional Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Rank/Position:</strong> {{ crew_member.rank }}</p>
+                            <p><strong>Years of Experience:</strong> {{ crew_member.years_experience }} years</p>
+                            <p><strong>Availability Date:</strong> {{ crew_member.availability_date.strftime('%B %d, %Y') }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            {% if crew_member.last_vessel_type %}
+                            <p><strong>Last Vessel Type:</strong> {{ crew_member.last_vessel_type }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Contact -->
+            {% if crew_member.emergency_contact_name or crew_member.emergency_contact_phone %}
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-phone me-2"></i>Emergency Contact
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {% if crew_member.emergency_contact_name %}
+                            <p><strong>Name:</strong> {{ crew_member.emergency_contact_name }}</p>
+                            {% endif %}
+                            {% if crew_member.emergency_contact_phone %}
+                            <p><strong>Phone:</strong> {{ crew_member.emergency_contact_phone }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            {% if crew_member.emergency_contact_relationship %}
+                            <p><strong>Relationship:</strong> {{ crew_member.emergency_contact_relationship }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Document Status -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-file-alt me-2"></i>Document Status
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% set documents = crew_member.get_required_documents() %}
+                    <div class="row">
+                        {% for doc in documents %}
+                        <div class="col-md-6 mb-2">
+                            <div class="d-flex align-items-center">
+                                {% if doc.uploaded %}
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <span>{{ doc.name }}</span>
+                                    {% if getattr(crew_member, doc.field) %}
+                                    <a href="{{ url_for('uploaded_file', filename=getattr(crew_member, doc.field)) }}" 
+                                       target="_blank" class="btn btn-sm btn-outline-primary ms-auto">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    {% endif %}
+                                {% else %}
+                                    <i class="fas fa-times-circle text-{{ 'danger' if doc.required else 'muted' }} me-2"></i>
+                                    <span class="{{ 'text-muted' if not doc.required }}">
+                                        {{ doc.name }}
+                                        {% if not doc.required %}<small>(Optional)</small>{% endif %}
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Actions -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-cogs me-2"></i>Admin Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('update_crew_status', crew_id=crew_member.id) }}">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="action" class="form-label">Action</label>
+                                <select class="form-select" id="action" name="action" required>
+                                    <option value="">Select Action</option>
+                                    <option value="screening">Move to Screening</option>
+                                    <option value="verified">Mark Documents Verified</option>
+                                    <option value="approve">Approve</option>
+                                    <option value="reject">Reject</option>
+                                    <option value="flag">Flag for Review</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="notes" class="form-label">Notes</label>
+                                <textarea class="form-control" id="notes" name="notes" rows="2" placeholder="Optional notes..."></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Update Status
+                        </button>
+                    </form>
+
+                    <!-- Current Notes Display -->
+                    {% if crew_member.admin_notes or crew_member.screening_notes %}
+                    <hr>
+                    <h6 class="text-muted">Current Notes:</h6>
+                    {% if crew_member.admin_notes %}
+                    <div class="alert alert-info">
+                        <strong>Admin Notes:</strong> {{ crew_member.admin_notes }}
+                    </div>
+                    {% endif %}
+                    {% if crew_member.screening_notes %}
+                    <div class="alert alert-warning">
+                        <strong>Screening Notes:</strong> {{ crew_member.screening_notes }}
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        // Show success feedback
+        const button = event.target.closest('button');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check text-success me-2"></i>Copied!';
+        button.classList.remove('btn-info');
+        button.classList.add('btn-success');
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.remove('btn-success');
+            button.classList.add('btn-info');
+        }, 2000);
+    });
+}
+</script>
+{% endblock %}

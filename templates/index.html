@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">
+                    <i class="fas fa-anchor text-warning me-3"></i>
+                    Maricheck
+                </h1>
+                <p class="lead mb-4">
+                    Professional Maritime Crew Management System for efficient recruitment and staffing solutions.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{{ url_for('register_crew') }}" class="btn btn-warning btn-lg">
+                        <i class="fas fa-user-plus me-2"></i>Join as Crew
+                    </a>
+                    <a href="{{ url_for('register_staff') }}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-briefcase me-2"></i>Staff Opportunities
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <i class="fas fa-ship text-warning" style="font-size: 8rem; opacity: 0.3;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto text-center mb-5">
+            <h2 class="mb-4">Maritime Career Solutions</h2>
+            <p class="lead text-muted">
+                Connect with leading shipping companies and advance your maritime career with our comprehensive management platform.
+            </p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Crew Registration -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="bg-primary text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                        <i class="fas fa-user-plus fa-lg"></i>
+                    </div>
+                    <h5 class="card-title">Crew Registration</h5>
+                    <p class="card-text text-muted">
+                        Join our maritime crew database and connect with vessel opportunities worldwide.
+                    </p>
+                    <a href="{{ url_for('register_crew') }}" class="btn btn-primary">
+                        Register Now <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Staff Opportunities -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="bg-success text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                        <i class="fas fa-briefcase fa-lg"></i>
+                    </div>
+                    <h5 class="card-title">Staff Positions</h5>
+                    <p class="card-text text-muted">
+                        Explore shore-based opportunities in operations, HR, technical, and crewing departments.
+                    </p>
+                    <a href="{{ url_for('register_staff') }}" class="btn btn-success">
+                        Apply Now <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Track Status -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="bg-info text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                        <i class="fas fa-search fa-lg"></i>
+                    </div>
+                    <h5 class="card-title">Track Application</h5>
+                    <p class="card-text text-muted">
+                        Monitor your application status and stay updated on your recruitment progress.
+                    </p>
+                    <a href="{{ url_for('track_status') }}" class="btn btn-info">
+                        Track Status <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Access -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="bg-warning text-dark rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                        <i class="fas fa-user-shield fa-lg"></i>
+                    </div>
+                    <h5 class="card-title">Admin Dashboard</h5>
+                    <p class="card-text text-muted">
+                        Manage applications, review profiles, and oversee recruitment operations.
+                    </p>
+                    <a href="{{ url_for('admin_login') }}" class="btn btn-warning">
+                        Admin Login <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h3 class="mb-4">Why Choose Maricheck?</h3>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-shield-alt text-primary fa-2x mb-3"></i>
+                    <h5>Secure Platform</h5>
+                    <p class="text-muted">Your data is protected with industry-standard security measures.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-globe text-primary fa-2x mb-3"></i>
+                    <h5>Global Opportunities</h5>
+                    <p class="text-muted">Connect with maritime opportunities worldwide through our network.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-clock text-primary fa-2x mb-3"></i>
+                    <h5>Fast Processing</h5>
+                    <p class="text-muted">Efficient application processing and quick response times.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Staff Registration - Maricheck{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow">
+                <div class="card-header bg-success text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-briefcase me-2"></i>Staff Registration
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <p class="text-muted mb-4">
+                        Apply for shore-based positions in operations, HR, technical, and crewing departments.
+                    </p>
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+                        
+                        <!-- Personal Information -->
+                        <h5 class="text-success mb-3">
+                            <i class="fas fa-user me-2"></i>Personal Information
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.full_name.label(class="form-label") }}
+                                {{ form.full_name(class="form-control") }}
+                                {% if form.full_name.errors %}
+                                    <div class="text-danger small">{{ form.full_name.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.email_or_whatsapp.label(class="form-label") }}
+                                {{ form.email_or_whatsapp(class="form-control") }}
+                                {% if form.email_or_whatsapp.errors %}
+                                    <div class="text-danger small">{{ form.email_or_whatsapp.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.mobile_number.label(class="form-label") }}
+                                {{ form.mobile_number(class="form-control") }}
+                                {% if form.mobile_number.errors %}
+                                    <div class="text-danger small">{{ form.mobile_number.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.location.label(class="form-label") }}
+                                {{ form.location(class="form-control") }}
+                                {% if form.location.errors %}
+                                    <div class="text-danger small">{{ form.location.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Professional Information -->
+                        <h5 class="text-success mb-3 mt-4">
+                            <i class="fas fa-briefcase me-2"></i>Professional Information
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.position_applying.label(class="form-label") }}
+                                {{ form.position_applying(class="form-control") }}
+                                {% if form.position_applying.errors %}
+                                    <div class="text-danger small">{{ form.position_applying.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.department.label(class="form-label") }}
+                                {{ form.department(class="form-select") }}
+                                {% if form.department.errors %}
+                                    <div class="text-danger small">{{ form.department.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.years_experience.label(class="form-label") }}
+                                {{ form.years_experience(class="form-control") }}
+                                {% if form.years_experience.errors %}
+                                    <div class="text-danger small">{{ form.years_experience.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.availability_date.label(class="form-label") }}
+                                {{ form.availability_date(class="form-control") }}
+                                {% if form.availability_date.errors %}
+                                    <div class="text-danger small">{{ form.availability_date.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form.current_employer.label(class="form-label") }}
+                            {{ form.current_employer(class="form-control") }}
+                        </div>
+
+                        <!-- Additional Information -->
+                        <h5 class="text-success mb-3 mt-4">
+                            <i class="fas fa-info-circle me-2"></i>Additional Information (Optional)
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.education.label(class="form-label") }}
+                                {{ form.education(class="form-control") }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.salary_expectation.label(class="form-label") }}
+                                {{ form.salary_expectation(class="form-control") }}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form.certifications.label(class="form-label") }}
+                            {{ form.certifications(class="form-control", rows="3") }}
+                        </div>
+
+                        <!-- Document Uploads -->
+                        <h5 class="text-success mb-3 mt-4">
+                            <i class="fas fa-file-upload me-2"></i>Document Uploads (Optional)
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.resume_file.label(class="form-label") }}
+                                {{ form.resume_file(class="form-control") }}
+                                {% if form.resume_file.errors %}
+                                    <div class="text-danger small">{{ form.resume_file.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.photo_file.label(class="form-label") }}
+                                {{ form.photo_file(class="form-control") }}
+                                {% if form.photo_file.errors %}
+                                    <div class="text-danger small">{{ form.photo_file.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a href="{{ url_for('index') }}" class="btn btn-secondary me-md-2">Cancel</a>
+                            {{ form.submit(class="btn btn-success px-4") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

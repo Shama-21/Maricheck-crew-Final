@@ -15,6 +15,7 @@ class CrewRegistrationForm(FlaskForm):
     # Professional Information
     rank = SelectField('Rank/Position', choices=[
         ('', 'Select Rank'),
+        ('Fresher', 'Fresher'),
         ('Captain', 'Captain'),
         ('Chief Officer', 'Chief Officer'),
         ('Second Officer', 'Second Officer'),
@@ -36,6 +37,7 @@ class CrewRegistrationForm(FlaskForm):
     passport = StringField('Passport Number', validators=[DataRequired(), Length(min=6, max=32)])
     years_experience = IntegerField('Years of Experience', validators=[DataRequired(), NumberRange(min=0, max=50)])
     last_vessel_type = StringField('Last Vessel Type', validators=[Optional(), Length(max=128)])
+    next_available_port = StringField('Next Available Port', validators=[Optional(), Length(max=128)])
     availability_date = DateField('Availability Date', validators=[DataRequired()])
     
     # Emergency Contact

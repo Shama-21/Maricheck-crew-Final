@@ -102,6 +102,9 @@
                             {% if crew_member.last_vessel_type %}
                             <p><strong>Last Vessel Type:</strong> {{ crew_member.last_vessel_type }}</p>
                             {% endif %}
+                            {% if crew_member.next_available_port %}
+                            <p><strong>Next Available Port:</strong> {{ crew_member.next_available_port }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

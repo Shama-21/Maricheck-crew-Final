@@ -13,6 +13,7 @@ Preferred communication style: Simple, everyday language.
 - **Document Name Updates**: Changed "Bank Details Document" to "SEA (Seafarer's Employment Agreement)" and "Aadhaar/PAN Card" to "Government ID (Aadhar, PAN, SSN)" across all forms and templates
 - **Professional Color Scheme**: Implemented modern gradient-based design with navy blue primary colors, professional typography, and enhanced visual hierarchy
 - **Template Error Fixes**: Resolved Jinja2 template errors in crew profile document management system
+- **Form Enhancements**: Added "Fresher" option to rank/position dropdown and "Next Available Port" field to crew registration forms and admin interface
 
 ## System Architecture
 

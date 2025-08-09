@@ -42,6 +42,7 @@ def register_crew():
             passport=form.passport.data.upper() if form.passport.data else '',
             years_experience=form.years_experience.data,
             last_vessel_type=form.last_vessel_type.data,
+            next_available_port=form.next_available_port.data,
             availability_date=form.availability_date.data,
             emergency_contact_name=form.emergency_contact_name.data,
             emergency_contact_phone=form.emergency_contact_phone.data,

@@ -32,6 +32,7 @@ class CrewMember(db.Model):
     date_of_birth = db.Column(db.Date, nullable=False)
     years_experience = db.Column(db.Integer, nullable=False)
     last_vessel_type = db.Column(db.String(128))
+    next_available_port = db.Column(db.String(128))
     availability_date = db.Column(db.Date, nullable=False)
     mobile_number = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(120), nullable=False)

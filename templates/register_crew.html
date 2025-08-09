@@ -100,12 +100,21 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="mb-3">
-                            {{ form.last_vessel_type.label(class="form-label") }}
-                            {{ form.last_vessel_type(class="form-control") }}
-                            {% if form.last_vessel_type.errors %}
-                                <div class="text-danger small">{{ form.last_vessel_type.errors[0] }}</div>
-                            {% endif %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.last_vessel_type.label(class="form-label") }}
+                                {{ form.last_vessel_type(class="form-control") }}
+                                {% if form.last_vessel_type.errors %}
+                                    <div class="text-danger small">{{ form.last_vessel_type.errors[0] }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.next_available_port.label(class="form-label") }}
+                                {{ form.next_available_port(class="form-control") }}
+                                {% if form.next_available_port.errors %}
+                                    <div class="text-danger small">{{ form.next_available_port.errors[0] }}</div>
+                                {% endif %}
+                            </div>
                         </div>
 
                         <!-- Emergency Contact -->

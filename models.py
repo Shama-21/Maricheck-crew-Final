@@ -116,18 +116,17 @@ class CrewMember(db.Model):
             {'field': 'medical_certificate_file', 'name': 'Medical Certificate', 'required': True},
             {'field': 'coc_cop_file', 'name': 'COC/COP Certificate', 'required': True},
             {'field': 'stcw_certificates_file', 'name': 'STCW Certificates', 'required': True},
-            {'field': 'bank_details_file', 'name': 'Bank Details Document', 'required': True},
+            {'field': 'bank_details_file', 'name': 'SEA (Seafarer\'s Employment Agreement)', 'required': True},
             {'field': 'gmdss_dce_file', 'name': 'GMDSS/DCE Certificate', 'required': False},
             {'field': 'yellow_fever_file', 'name': 'Yellow Fever Certificate', 'required': False},
         ]
         
-        # Add Aadhaar/PAN for Indian nationals
-        if self.nationality and self.nationality.lower() in ['indian', 'india']:
-            documents.append({
-                'field': 'aadhaar_pan_file', 
-                'name': 'Aadhaar/PAN Card', 
-                'required': True
-            })
+        # Add Government ID for all nationals
+        documents.append({
+            'field': 'aadhaar_pan_file', 
+            'name': 'Government ID (Aadhar, PAN, SSN)', 
+            'required': True
+        })
         
         # Check status of each document
         for doc in documents:

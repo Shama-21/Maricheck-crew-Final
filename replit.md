@@ -8,6 +8,12 @@ Maricheck is a Flask-based web application designed for managing maritime crew m
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes (August 2025)
+
+- **Document Name Updates**: Changed "Bank Details Document" to "SEA (Seafarer's Employment Agreement)" and "Aadhaar/PAN Card" to "Government ID (Aadhar, PAN, SSN)" across all forms and templates
+- **Professional Color Scheme**: Implemented modern gradient-based design with navy blue primary colors, professional typography, and enhanced visual hierarchy
+- **Template Error Fixes**: Resolved Jinja2 template errors in crew profile document management system
+
 ## System Architecture
 
 ### Frontend Architecture

@@ -105,8 +105,8 @@ class CrewProfileDocumentForm(FlaskForm):
     stcw_certificates_file = FileField('STCW Certificates', validators=[Optional(), FileAllowed(['pdf', 'jpg', 'jpeg', 'png'], 'PDF and image files only!')])
     gmdss_dce_file = FileField('GMDSS/DCE Certificate', validators=[Optional(), FileAllowed(['pdf', 'jpg', 'jpeg', 'png'], 'PDF and image files only!')])
     yellow_fever_file = FileField('Yellow Fever Certificate', validators=[Optional(), FileAllowed(['pdf', 'jpg', 'jpeg', 'png'], 'PDF and image files only!')])
-    bank_details_file = FileField('Bank Details Document', validators=[Optional(), FileAllowed(['pdf', 'jpg', 'jpeg', 'png'], 'PDF and image files only!')])
-    aadhaar_pan_file = FileField('Aadhaar/PAN Card', validators=[Optional(), FileAllowed(['pdf', 'jpg', 'jpeg', 'png'], 'PDF and image files only!')])
+    bank_details_file = FileField('SEA (Seafarer\'s Employment Agreement)', validators=[Optional(), FileAllowed(['pdf', 'jpg', 'jpeg', 'png'], 'PDF and image files only!')])
+    aadhaar_pan_file = FileField('Government ID (Aadhar, PAN, SSN)', validators=[Optional(), FileAllowed(['pdf', 'jpg', 'jpeg', 'png'], 'PDF and image files only!')])
     
     submit = SubmitField('Upload Documents')
 

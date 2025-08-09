@@ -151,8 +151,8 @@
                                 {% if doc.uploaded %}
                                     <i class="fas fa-check-circle text-success me-2"></i>
                                     <span>{{ doc.name }}</span>
-                                    {% if getattr(crew_member, doc.field) %}
-                                    <a href="{{ url_for('uploaded_file', filename=getattr(crew_member, doc.field)) }}" 
+                                    {% if doc.uploaded %}
+                                    <a href="{{ url_for('uploaded_file', filename=crew_member.__getattribute__(doc.field)) }}" 
                                        target="_blank" class="btn btn-sm btn-outline-primary ms-auto">
                                         <i class="fas fa-external-link-alt"></i>
                                     </a>

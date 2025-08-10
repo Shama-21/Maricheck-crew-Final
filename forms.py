@@ -110,6 +110,11 @@ class CrewProfileDocumentForm(FlaskForm):
     bank_details_file = FileField('SEA (Seafarer\'s Employment Agreement)', validators=[Optional(), FileAllowed(['pdf', 'jpg', 'jpeg', 'png'], 'PDF and image files only!')])
     aadhaar_pan_file = FileField('Government ID (Aadhar, PAN, SSN)', validators=[Optional(), FileAllowed(['pdf', 'jpg', 'jpeg', 'png'], 'PDF and image files only!')])
     
+    # New Professional Certificate Documents
+    indos_certificate_file = FileField('INDOS Certificate / Number', validators=[Optional(), FileAllowed(['pdf', 'jpg', 'jpeg', 'png'], 'PDF and image files only!')])
+    experience_letters_file = FileField('Experience Letters / Sea Service Testimonials', validators=[Optional(), FileAllowed(['pdf', 'jpg', 'jpeg', 'png'], 'PDF and image files only!')])
+    other_document_file = FileField('Other Document', validators=[Optional(), FileAllowed(['pdf', 'jpg', 'jpeg', 'png'], 'PDF and image files only!')])
+    
     submit = SubmitField('Upload Documents')
 
 

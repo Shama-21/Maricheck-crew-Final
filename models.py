@@ -57,6 +57,11 @@ class CrewMember(db.Model):
     bank_details_file = db.Column(db.String(255))  # Bank details document
     aadhaar_pan_file = db.Column(db.String(255))  # Aadhaar/PAN for Indian nationals
     
+    # New document fields
+    indos_certificate_file = db.Column(db.String(255))  # INDOS Certificate / Number
+    experience_letters_file = db.Column(db.String(255))  # Experience Letters / Sea Service Testimonials
+    other_document_file = db.Column(db.String(255))  # Other Document
+    
     # Profile access token for secure private access
     profile_token = db.Column(db.String(128), unique=True)
     
@@ -117,9 +122,12 @@ class CrewMember(db.Model):
             {'field': 'medical_certificate_file', 'name': 'Medical Certificate', 'required': True},
             {'field': 'coc_cop_file', 'name': 'COC/COP Certificate', 'required': True},
             {'field': 'stcw_certificates_file', 'name': 'STCW Certificates', 'required': True},
+            {'field': 'indos_certificate_file', 'name': 'INDOS Certificate / Number', 'required': True},
+            {'field': 'experience_letters_file', 'name': 'Experience Letters / Sea Service Testimonials', 'required': True},
             {'field': 'bank_details_file', 'name': 'SEA (Seafarer\'s Employment Agreement)', 'required': True},
             {'field': 'gmdss_dce_file', 'name': 'GMDSS/DCE Certificate', 'required': False},
             {'field': 'yellow_fever_file', 'name': 'Yellow Fever Certificate', 'required': False},
+            {'field': 'other_document_file', 'name': 'Other Document', 'required': False},
         ]
         
         # Add Government ID for all nationals

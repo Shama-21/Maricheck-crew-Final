@@ -14,6 +14,7 @@ Preferred communication style: Simple, everyday language.
 - **Professional Color Scheme**: Implemented modern gradient-based design with navy blue primary colors, professional typography, and enhanced visual hierarchy
 - **Template Error Fixes**: Resolved Jinja2 template errors in crew profile document management system
 - **Form Enhancements**: Added "Fresher" option to rank/position dropdown and "Next Available Port" field to crew registration forms and admin interface
+- **Document Management Updates**: Added three new document fields - "INDOS Certificate / Number", "Experience Letters / Sea Service Testimonials" under Professional Certificates, and "Other Document" at the end of document list. Changes appear in both crew document management and admin panel
 
 ## System Architecture
 

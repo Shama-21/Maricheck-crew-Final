@@ -148,7 +148,7 @@ def crew_private_profile(crew_id, token):
         document_fields = [
             'passport_file', 'cdc_file', 'resume_file', 'photo_file', 'medical_certificate_file',
             'coc_cop_file', 'stcw_certificates_file', 'gmdss_dce_file', 'yellow_fever_file',
-            'bank_details_file', 'aadhaar_pan_file'
+            'bank_details_file', 'aadhaar_pan_file', 'indos_certificate_file', 'experience_letters_file', 'other_document_file'
         ]
         
         for field_name in document_fields:

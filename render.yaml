@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: maricheck
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn --config gunicorn.conf.py main:app"
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: FLASK_ENV
+        value: production

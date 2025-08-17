@@ -29,7 +29,7 @@ if database_url and database_url.startswith("postgres://"):
     # Render uses postgres:// but SQLAlchemy 1.4+ requires postgresql://
     database_url = database_url.replace("postgres://", "postgresql://", 1)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://maricheck_db_user:JoQqdDZLleilfNrYATwjK5RQc4prsfnD@dpg-d2h03gbuibrs73eptp20-a/maricheck_db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://maricheck_db_user:JoQqdDZLleilfNrYATwjK5RQc4prsfnD@dpg-d2h03gbuibrs73eptp20-a/maricheck_db?sslmode=require"
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
     "pool_recycle": 300,
     "pool_pre_ping": True,
